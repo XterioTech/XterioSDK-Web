@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xterio SDK Example</title>
+</head>
+
+<body>
+  <div id="app">
+    <button id="auth-react">Xterio Auth(React)</button>
+    <button id="auth-tt">Xterio Auth(tg)</button>
+    <button id="wallet-react">Xterio Wallet(React)</button>
+  </div>
+</body>
+
+<script type="module">
+  document.getElementById("auth-react").onclick = () => {
+    location.href = "./auth-react/index.html";
+  };
+  document.getElementById("auth-tt").onclick = () => {
+    location.href = "./auth-tg/index.html";
+  };
+  document.getElementById("wallet-react").onclick = () => {
+    location.href = "./wallet-react/index.html";
+  };
+</script>
+</html>
