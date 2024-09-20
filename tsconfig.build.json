@@ -1,0 +1,38 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "outDir": "./dist/types",
+    "paths": {
+      "*": [
+        "./src/*",
+        "./node_modules/*",
+      ],
+      "src/common/*": [
+        "./src/common/*"
+      ],
+      "src/templates/*": [
+        "./src/templates/*"
+      ],
+      "src/modules/*": [
+        "./src/modules/*"
+      ],
+      "src/interfaces/*": [
+        "./src/interfaces/*"
+      ],
+    },
+    "noImplicitAny": false,
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "example",
+    "./package.json",
+    "./src/App.tsx",
+    "./src/main.tsx",
+    "./src/common/abi"
+  ]
+}
