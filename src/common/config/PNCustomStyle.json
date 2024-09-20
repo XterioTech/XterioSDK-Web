@@ -1,0 +1,101 @@
+{
+  "theme": {
+    "light": {
+      "themeBackgroundColor": "#eeeeee",
+      "textColor": "#0a1161",
+      "secondaryTextColor": "#9598b9",
+      "accentColor": "#5177f9",
+      "inputBackgroundColor": "#9598b919",
+      "inputBorderColor": "#25252500",
+      "inputPlaceholderColor": "#9598b9",
+      "iconBorderColor": "#ffffff00",
+      "primaryBtnColor": "#fff",
+      "primaryBtnBackgroundColor": "#0a1161",
+      "secondaryBtnColor": "#0a1161",
+      "secondaryBtnBackgroundColor": "#9598b919",
+      "cardBorderColor": "#0a1161",
+      "cardUnclickableBackgroundColor": "#9598b90c",
+      "cardUnclickableBorderColor": "#9598b933",
+      "cardDividerColor": "#9598b933",
+      "tagBackgroundColor": "#9598b919",
+      "modalBackgroundColor": "#eeeeee",
+      "tipsBackgroundColor": "#ebd6f2"
+    }
+  },
+  "wallet": {
+    "light": {
+      "colorAccent": "#7DD5F9",
+      "colorPrimary": "#21213a",
+      "colorOnPrimary": "#171728",
+      "primaryButtonBackgroundColors": [
+        "#5ED7FF",
+        "#E89DE7"
+      ],
+      "primaryIconButtonBackgroundColors": [
+        "#5ED7FF",
+        "#E89DE7"
+      ],
+      "primaryButtonTextColor": "#0A1161",
+      "cancelButtonBackgroundColor": "#666666",
+      "backgroundColors": [
+        "#14152e",
+        [
+          [
+            "#e6b1f766",
+            "#e6b1f700"
+          ],
+          [
+            "#7dd5f94d",
+            "#7dd5f900"
+          ]
+        ]
+      ],
+      "messageColors": [
+        "#7DD5F9",
+        "#ed5d51"
+      ],
+      "borderGlowColors": [
+        "#7bd5f940",
+        "#323233"
+      ],
+      "modalMaskBackgroundColor": "#141430b3"
+    },
+    "dark": {
+      "colorAccent": "#7DD5F9",
+      "colorPrimary": "#21213a",
+      "colorOnPrimary": "#171728",
+      "primaryButtonBackgroundColors": [
+        "#5ED7FF",
+        "#E89DE7"
+      ],
+      "primaryIconButtonBackgroundColors": [
+        "#5ED7FF",
+        "#E89DE7"
+      ],
+      "primaryButtonTextColor": "#0A1161",
+      "cancelButtonBackgroundColor": "#666666",
+      "backgroundColors": [
+        "#14152e",
+        [
+          [
+            "#e6b1f766",
+            "#e6b1f700"
+          ],
+          [
+            "#7dd5f94d",
+            "#7dd5f900"
+          ]
+        ]
+      ],
+      "messageColors": [
+        "#7DD5F9",
+        "#ed5d51"
+      ],
+      "borderGlowColors": [
+        "#7bd5f940",
+        "#323233"
+      ],
+      "modalMaskBackgroundColor": "#141430b3"
+    }
+  }
+}
