@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .card {
+      display: flex;
+  
+      >div {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+    }
+    
+  </style>
+</head>
+
+<body>
+  <h1>Hello, Webpack!</h1>
+  <div class="card">
+  <div id="login" style="width: 100px;height: 40px;background-color: red;">默认登录</div>
+  <div id="login_email" style="width: 100px;height: 40px;background-color: red;">邮箱登录</div>
+  <div id="login_mini" style="width: 100px;height: 40px;background-color: red;">小程序登录</div>
+  <div id="logout" style="width: 100px;height: 40px;background-color: red;">退出登录</div>
+  <div id="getIdToken" style="width: 100px;height: 40px;background-color: red;">IdToken</div>
+  </div>
+  
+  <div>用户信息</div>
+  <p id="userinfo"></p>
+  <div class="card">
+    <p>设置要打开的页面:<span id="current-page" style="color: red;"></span></p>
+    <div id="page-asset" style="width: 130px;height: 40px;background-color: red;">资产页</div>
+    <div id="page-account" style="width: 130px;height: 40px;background-color: red;">账户页</div>
+    <div id="page-wallet" style="width: 130px;height: 40px;background-color: red;">钱包页</div>
+    <div id="page-nft" style="width: 130px;height: 40px;background-color: red;">nft页</div>
+  </div>
+  <div class="card">
+    <div id="openAsset" style="width: 130px;height: 40px;background-color: red;">打开页面(弹框)</div>
+    <div id="openAsset-new" style="width: 130px;height: 40px;background-color: red;">打开页面(新页)</div>
+    <div id="openAsset-dom" style="width: 130px;height: 40px;background-color: red;">打开页面(dom)</div>
+    <div id="openAsset-uri" style="width: 130px;height: 40px;background-color: red;">打开页面(uri)</div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+
+</html>
