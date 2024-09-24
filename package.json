@@ -1,0 +1,85 @@
+{
+  "name": "@xterio-sdk/wallet",
+  "private": false,
+  "version": "0.0.8",
+  "description": "xterio-wallet",
+  "author": "xterio platform",
+  "license": "ISC",
+  "keywords": [
+    "xterio-wallet",
+    "xterio-sdk"
+  ],
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/es/index.js",
+      "require": "./dist/lib/index.js",
+      "default": "./dist/es/index.js",
+      "style": "./dist/es/style.css"
+    },
+    "./style/main.css": {
+      "import": "./dist/es/style.css",
+      "require": "./dist/es/style.css"
+    }
+  },
+  "unpkg": "./dist/umd/index.min.js",
+  "jsdelivr": "./dist/umd/index.min.js",
+  "style": "./dist/es/style.css",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://gitlab.itlibecc.com/changying/platform/xteriosdk-web.git#README",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.itlibecc.com/changying/platform/xteriosdk-web.git",
+    "directory": "xterio-wallet"
+  },
+  "bugs": {
+    "url": "https://gitlab.itlibecc.com/changying/platform/xteriosdk-web/issues"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "dev": "vite --port 3000",
+    "build": "rm -rf dist/* && vite build && npm run build:umd",
+    "build:umd": "vite build --config vite.umd.config.mts",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "ethers": "^5.7.2"
+  },
+  "dependencies": {
+    "@particle-network/aa": "2.0.1",
+    "@particle-network/auth-core": "2.0.2",
+    "@particle-network/authkit": "2.0.2",
+    "@particle-network/thresh-sig": "^0.7.8",
+    "@xterio-sdk/auth": "^0.0.8",
+    "ethers": "^5.7.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.21.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "buffer": "^6.0.3",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.1.0",
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "vite-tsconfig-paths": "^5.0.1"
+  }
+}
