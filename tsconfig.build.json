@@ -1,0 +1,36 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "outDir": "./dist/types",
+    "paths": {
+      "interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "modules/*": [
+        "./src/modules/*"
+      ],
+      "utils": [
+        "./src/utils/index"
+      ],
+      "utils/*": [
+        "./src/utils/*"
+      ],
+      "ui/*": [
+        "./src/ui/*"
+      ],
+    }
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+  ],
+  "exclude": [
+    "node_modules",
+    "example",
+    "./package.json",
+    "./src/main.ts",
+    "./src/__test__"
+  ]
+}
