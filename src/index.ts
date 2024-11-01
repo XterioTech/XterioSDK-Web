@@ -8,6 +8,11 @@ export * from './modules/XterAuth'
 export * from './modules/AuthService'
 export * from './modules/XterAuthModal'
 
+/**
+ * Xter Topup
+ */
+export * from './modules/XterTopup'
+
 export {
   LoginType,
   Env,

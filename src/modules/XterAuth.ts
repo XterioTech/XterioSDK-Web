@@ -156,6 +156,12 @@ export class XterioAuth {
     XterioAuthInfo.env = _env
     XterioAuthInfo.baseURL = _baseURL
     XterioAuthInfo.pageURL = EnvVariableConfig[_env].PAGE_BASE
+
+    // init XterAuthLoginModal
+    // must init before async function
+    XterAuthModal.init({ apiUrl: _baseURL, env: _env })
+    XLog.debug(XterAuthModal.instance)
+
     const { response_type, scope } = _config
     XterioAuthInfo.authorizeUrl =
       _baseURL +
@@ -187,11 +193,6 @@ export class XterioAuth {
         await this.checkToken()
       })
     }, XTERIO_EVENTS.Expired)
-
-    // init XterAuthLoginModal
-    // must init before async function
-    XterAuthModal.init({ apiUrl: _baseURL, env: _env })
-    XLog.debug(XterAuthModal.instance)
 
     const code = this.getCode()
     if (code) {
