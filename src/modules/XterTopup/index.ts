@@ -4,6 +4,7 @@ import { TopupFrameConfig, XterTopupMethod, PostData, TopupUrlConfig, PostMessag
 import { XterioAuthService } from 'modules/AuthService'
 import { XterioAuth } from 'modules/XterAuth'
 import './styles/xter-topup.scss'
+import { XterioAuthInfo } from 'modules/XterAuthInfo'
 
 export type { TopupFrameConfig, PostData }
 export { XterTopupMethod }
@@ -13,14 +14,16 @@ export class XterTopup {
   private iframe: HTMLIFrameElement | null = null
   private config: TopupFrameConfig
   private TopupUrlConfig: TopupUrlConfig
+  private otac = ''
+  private env = Env.Dev
 
   constructor(config: TopupFrameConfig, customTopupUrlConfig?: TopupUrlConfig) {
     this.config = {
-      ...config,
-      env: config.env || Env.Dev
+      ...config
     }
+    this.env = XterioAuthInfo.env
 
-    this.TopupUrlConfig = customTopupUrlConfig || XTER_TOPUP_URLS[this.config.env!]
+    this.TopupUrlConfig = customTopupUrlConfig || XTER_TOPUP_URLS[this.env!]
     this.setupMessageListener()
   }
 
@@ -75,10 +78,21 @@ export class XterTopup {
     this.container.style.position = 'relative'
     this.container.innerHTML = ''
 
-    // 如果没有 getOtac 方法，显示未登录状态
+    const authFailedException = new Error(
+      `[XterTopup] Authentication failed, please login first before open topup page.`
+    )
     if (!XterioAuth.isLogin) {
-      this.container.appendChild(this.renderNotLoginElement())
-      return
+      throw authFailedException
+    }
+    let otac = ''
+    try {
+      otac = await XterioAuthService.getOtacByTokens()
+      if (!otac) {
+        throw authFailedException
+      }
+      this.otac = otac
+    } catch (error) {
+      throw authFailedException
     }
 
     // 显示加载动画
@@ -103,7 +117,7 @@ export class XterTopup {
     if (typeof container === 'string') {
       const element = document.querySelector(container)
       if (!element) {
-        throw new Error(`Container not found: ${container}`)
+        throw new Error(`[XterTopup] Container not found: ${container}`)
       }
       return element as HTMLElement
     }
@@ -113,29 +127,14 @@ export class XterTopup {
   private async getIframeSrc(method: XterTopupMethod): Promise<string> {
     const baseUrl = method === 'default' ? this.TopupUrlConfig.defaultTopupUrl : this.TopupUrlConfig.fiatTopupUrl
 
-    let otac = ''
-    if (this.config.getOtac) {
-      // 如果用户提供了 getOtac 方法则使用自定义方法
-      try {
-        otac = await this.config.getOtac()
-      } catch (error) {
-        console.error('Failed to get OTAC:', error)
-        throw new Error('Failed to get OTAC')
-      }
-    } else {
-      // 否则 XterioAuthService.getOtacByTokens
-      otac = await XterioAuthService.getOtacByTokens()
-    }
-
     const params = new URLSearchParams({
-      asset_id: this.config.assetId,
-      game_id: this.config.gameId,
+      asset_id: this.config.spuId,
+      game_id: XterioAuthInfo.app_id,
       sku_id: this.config.skuId,
       hide_header: String(!!this.config.hideHeader),
       hide_footer: String(!!this.config.hideFooter),
       show_modal: String(!!this.config.showModal),
-      _otac: otac,
-      env: this.config.env as string
+      _otac: this.otac
     })
 
     return `${baseUrl}?${params.toString()}`
@@ -164,7 +163,7 @@ export class XterTopup {
     } catch (error) {
       console.error('Failed to open payment:', error)
       // 发生错误时显示错误信息
-      this.renderError()
+      // this.renderError()
       throw error
     }
   }
@@ -176,21 +175,21 @@ export class XterTopup {
     return loadingDiv
   }
 
-  private renderNotLoginElement(): HTMLDivElement {
-    const notLoginDiv = document.createElement('div')
-    notLoginDiv.className = 'xa-topup-empty'
-    notLoginDiv.textContent = 'Not Login yet'
-    return notLoginDiv
-  }
+  // private renderNotLoginElement(): HTMLDivElement {
+  //   const notLoginDiv = document.createElement('div')
+  //   notLoginDiv.className = 'xa-topup-empty'
+  //   notLoginDiv.textContent = 'Not Login yet'
+  //   return notLoginDiv
+  // }
 
-  private renderError() {
-    if (this.container) {
-      this.container.innerHTML = ''
-      const errorDiv = document.createElement('div')
-      errorDiv.className = 'xa-toup-error-container'
+  // private renderError() {
+  //   if (this.container) {
+  //     this.container.innerHTML = ''
+  //     const errorDiv = document.createElement('div')
+  //     errorDiv.className = 'xa-toup-error-container'
 
-      errorDiv.textContent = 'Failed to load payment page'
-      this.container.appendChild(errorDiv)
-    }
-  }
+  //     errorDiv.textContent = 'Failed to load payment page'
+  //     this.container.appendChild(errorDiv)
+  //   }
+  // }
 }

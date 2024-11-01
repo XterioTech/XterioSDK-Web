@@ -25,33 +25,11 @@ export interface EnvTopupUrlConfig {
 }
 
 export interface TopupFrameConfig {
-  /** 要购买的 token 或其他资产ID，对应一个 spu */
-  assetId: string
-
-  /** 游戏ID，用于资产归属的游戏项目 */
-  gameId: string
+  /** 要购买的商品 spu_id  */
+  spuId: string
 
   /** 商品ID，用于标识具体要购买的商品 */
   skuId: string
-
-  /**
-   * 环境配置，用于切换不同环境的支付地址
-   * 可选值：Dev（开发环境）、Staging（预发布环境）、Production（生产环境）
-   * @default Env.Dev
-   */
-  env?: Env
-
-  /**
-   * 是否隐藏支付页面的头部导航栏
-   * @default true
-   */
-  hideHeader?: boolean
-
-  /**
-   * 是否隐藏支付页面的底部信息栏
-   * @default false
-   */
-  hideFooter?: boolean
 
   /**
    * 是否在页面加载完成后直接显示支付弹窗
@@ -74,6 +52,18 @@ export interface TopupFrameConfig {
   height?: string | number
 
   /**
+   * 是否隐藏支付页面的头部导航栏
+   * @default true
+   */
+  hideHeader?: boolean
+
+  /**
+   * 是否隐藏支付页面的底部信息栏
+   * @default false
+   */
+  hideFooter?: boolean
+
+  /**
    * iframe 加载完成时的回调函数
    * 可用于处理加载完成后的逻辑
    */
@@ -90,12 +80,6 @@ export interface TopupFrameConfig {
    * @param data 支付成功时返回的数据
    */
   onSuccessClose?: (data?: PostData) => void
-
-  /**
-   * 获取 OTAC（一次性认证码）的函数
-   * 返回 Promise<string>，用于获取最新的 OTAC
-   */
-  getOtac?: () => Promise<string>
 }
 
 export interface TopupUrlConfig {
