@@ -115,7 +115,8 @@ XterioAuth.getUserInfo((info) => {
 ```
 
 #### `openPage(page:PageType, mode?:OpenPageMode, options?:PageOptionParam)`
-default mode: `OpenPageMode.alert`，View the detailed configuration of [PageOptionParam](#PageOptionParam) 、[PageType](#PageType)、[OpenPageMode](#OpenPageMode) [PageOptionParam](#`PageOptionParam`)
+default mode: `OpenPageMode.alert`，View the detailed configuration of [PageOptionParam](#PageOptionParam) 、[PageType](#PageType)、[OpenPageMode](#OpenPageMode) [PageOptionParam](#`PageOptionParam`)、
+- [部分二](#section-2)
 
 ```ts
 //example1: page:asset, mode:alert
@@ -232,7 +233,7 @@ export enum LoginType {
 ### `OpenPageMode` <a id="OpenPageMode"></a>
 ```ts
 export enum OpenPageMode {
-  alert = 'alert', //open alert
+  popup = 'popup', //open popup
   page = 'page', //open new page
   iframeDom = 'dom', //return iframe dom
   iframeUri = 'url' //return url
@@ -251,7 +252,6 @@ export enum PageType {
 
 ### `PageOptionParam` <a id="PageOptionParam"></a>
 ```ts
-export type BooleanOrBinary = boolean | 1 | 0
 export interface PageOptionParam {
   /** only settings page */
   tab?: 'profile' | 'account' | 'wallet' | 'security'
@@ -263,6 +263,18 @@ export interface PageOptionParam {
   collection?: string
   /** only nft page */
   features?: { k: string; initValues: (number | string)[]; type?: string }[]
+  /** set xterio page layout options */
+  XterViewCustomOptions?: Partial<XterViewCustomizeOptions>
+  /** set alert configs */
+  popupConfig?: Partial<PagePopupConfig>
+}
+export type BooleanOrBinary = boolean | 1 | 0
+export interface PagePopupConfig {
+  placement: 'left' | 'right' | 'center'
+  style: Partial<CSSStyleDeclaration>
+  showCloseIcon?: boolean
+}
+export interface XterViewCustomizeOptions {
   /** whether hide wallet entry */
   hide_wallet_entrance?: BooleanOrBinary
   /** whether hide account */
@@ -283,14 +295,8 @@ export interface PageOptionParam {
   hide_game_tokens?: BooleanOrBinary
   /** whether hide game filter, only nft page */
   hide_game_filter?: BooleanOrBinary
-  /** set alert configs */
-  alertConfig?: {
-    placement: 'left' | 'right' | 'center'
-    style: Partial<CSSStyleDeclaration>
-    showCloseIcon?: boolean
-  }
 }
 ```
 
-
+## 部分二
 
