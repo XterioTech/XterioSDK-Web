@@ -1,4 +1,10 @@
-import { OpenPageMode, PageAlertConfig, PageOptionParam, PageType } from 'interfaces/loginInfo'
+import {
+  OpenPageMode,
+  PageOptionParam,
+  PagePopupConfig,
+  PageType,
+  XterViewCustomizeOptions
+} from 'interfaces/loginInfo'
 import { Env, IUserInfo, LoginType, XterioAuth } from './index'
 import './styles/main.scss'
 
@@ -98,7 +104,7 @@ addClick('getOtac', async () => {
 })
 
 addClick('openAsset', () => {
-  XterioAuth.openPage(currentPageName, OpenPageMode.alert, { ...getPageParam(), alertConfig: getAlertConfig() })
+  XterioAuth.openPage(currentPageName, OpenPageMode.popup, { ...getPageParam(), popupConfig: getAlertConfig() })
 })
 addClick('openAsset-new', () => {
   XterioAuth.openPage(currentPageName, OpenPageMode.page, getPageParam())
@@ -144,57 +150,62 @@ const getInputValue = (cls: string, tag: string = 'input') => {
   return input?.value
 }
 const getPageParam = () => {
-  let dic: any = {}
+  let dic: Partial<PageOptionParam> = {}
   if (currentPageName === PageType.asset) {
-    const tab: HTMLInputElement | null = document.querySelector('input[name="asset_active_tab_option"]:checked')
-    dic = { ...dic, active: tab?.value || 'ingame' }
+    const value = (getRadioValue('asset_active_tab_option') || 'ingame') as PageOptionParam['active']
+    dic = { ...dic, active: value }
   }
   if (currentPageName === PageType.setting) {
-    const tab: HTMLInputElement | null = document.querySelector('input[name="setting_active_tab_option"]:checked')
-    dic = { ...dic, tab: tab?.value || 'account' }
+    const value = (getRadioValue('setting_active_tab_option') || 'account') as PageOptionParam['tab']
+    dic = { ...dic, tab: value }
   }
   if (currentPageName === PageType.nft_collection) {
     dic = { ...dic, collection: '65e04d9b65fca97f09ff8f42' }
   }
 
-  if (isChecked('hide_wallet_entrance')) {
-    dic = { ...dic, hide_wallet_entrance: true }
+  let options: XterViewCustomizeOptions = {}
+  {
+    if (isChecked('hide_wallet_entrance')) {
+      options = { ...options, hide_wallet_entrance: true }
+    }
+    if (isChecked('hide_account_entrance')) {
+      options = { ...options, hide_account_entrance: true }
+    }
+    if (isChecked('hide_menu_entrance')) {
+      options = { ...options, hide_menu_entrance: true }
+    }
+    if (isChecked('hide_sign_out')) {
+      options = { ...options, hide_sign_out: true }
+    }
+    if (isChecked('hide_header')) {
+      options = { ...options, hide_header: true }
+    }
+    if (isChecked('hide_footer')) {
+      options = { ...options, hide_footer: true }
+    }
+    if (isChecked('disable_logo_click')) {
+      options = { ...options, disable_logo_click: true }
+    }
+    if (isChecked('hide_game_select') && currentPageName === PageType.asset) {
+      options = { ...options, hide_game_select: true }
+    }
+    if (isChecked('hide_game_tokens') && currentPageName === PageType.asset) {
+      options = { ...options, hide_game_tokens: true }
+    }
+    if (isChecked('hide_game_filter') && currentPageName === PageType.nft_market) {
+      options = { ...options, hide_game_filter: true }
+    }
+    if (Object.keys(options).length) {
+      dic['XterViewCustomOptions'] = options
+    }
   }
-  if (isChecked('hide_account_entrance')) {
-    dic = { ...dic, hide_account_entrance: true }
-  }
-  if (isChecked('hide_menu_entrance')) {
-    dic = { ...dic, hide_menu_entrance: true }
-  }
-  if (isChecked('hide_sign_out')) {
-    dic = { ...dic, hide_sign_out: true }
-  }
-  if (isChecked('hide_header')) {
-    dic = { ...dic, hide_header: true }
-  }
-  if (isChecked('hide_footer')) {
-    dic = { ...dic, hide_footer: true }
-  }
-  if (isChecked('disable_logo_click')) {
-    dic = { ...dic, disable_logo_click: true }
-  }
-  if (isChecked('hide_game_select') && currentPageName === PageType.asset) {
-    dic = { ...dic, hide_game_select: true }
-  }
-  if (isChecked('hide_game_tokens') && currentPageName === PageType.asset) {
-    dic = { ...dic, hide_game_tokens: true }
-  }
-  if (isChecked('hide_game_filter') && currentPageName === PageType.nft_market) {
-    dic = { ...dic, hide_game_filter: true }
-  }
-
   console.log('dic=', dic)
   return dic
 }
 
 const getAlertConfig = () => {
-  const placement = (getRadioValue('alert_active_place_option') || 'right') as PageAlertConfig['placement']
-  let dic: Partial<PageAlertConfig> = { placement }
+  const placement = (getRadioValue('alert_active_place_option') || 'right') as PagePopupConfig['placement']
+  let dic: Partial<PagePopupConfig> = { placement }
   if (isChecked('alert_showCloseIcon')) {
     dic = { ...dic, showCloseIcon: false }
   }
