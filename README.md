@@ -115,8 +115,7 @@ XterioAuth.getUserInfo((info) => {
 ```
 
 #### `openPage(page:PageType, mode?:OpenPageMode, options?:PageOptionParam)`
-default mode: `OpenPageMode.alert`，View the detailed configuration of [PageOptionParam](#PageOptionParam) 、[PageType](#PageType)、[OpenPageMode](#OpenPageMode) [PageOptionParam](#`PageOptionParam`)、
-- [部分二](#section-2)
+default mode: `OpenPageMode.alert`，View the detailed configuration of [PageOptionParam](#page-option-param) 、[PageType](#PageType)、[OpenPageMode](#OpenPageMode)
 
 ```ts
 //example1: page:asset, mode:alert
@@ -250,7 +249,7 @@ export enum PageType {
 }
 ```
 
-### `PageOptionParam` <a id="PageOptionParam"></a>
+### `PageOptionParam` <a id="page-option-param"></a>
 ```ts
 export interface PageOptionParam {
   /** only settings page */
@@ -297,6 +296,4 @@ export interface XterViewCustomizeOptions {
   hide_game_filter?: BooleanOrBinary
 }
 ```
-
-## 部分二
 
