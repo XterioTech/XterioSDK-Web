@@ -1,4 +1,4 @@
-import { OpenPageMode, PageAlertConfig, PageOptionParam, PageType } from 'interfaces/loginInfo'
+import { OpenPageMode, PageOptionParam, PagePopupConfig, PageType } from 'interfaces/loginInfo'
 import { XterioAuthInfo } from './XterAuthInfo'
 import { XLog } from 'utils/logger'
 import qs from 'query-string'
@@ -37,8 +37,17 @@ export const getOtac = async () => {
 }
 
 export const openPage = async (page: PageType, mode?: OpenPageMode, options?: PageOptionParam) => {
-  const { active = 'ingame', tab = 'account', keyword, collection, features, alertConfig, ...rest } = options || {}
-  const _type = mode || OpenPageMode.alert
+  const {
+    active = 'ingame',
+    tab = 'account',
+    keyword,
+    collection,
+    features,
+    popupConfig,
+    XterViewCustomOptions,
+    ...rest
+  } = options || {}
+  const _type = mode || OpenPageMode.popup
   const app_id = XterioAuthInfo.config?.app_id || ''
   if (!app_id) {
     throw new Error('You must set xterio-auth app_id')
@@ -79,7 +88,7 @@ export const openPage = async (page: PageType, mode?: OpenPageMode, options?: Pa
   }
 
   if (uri) {
-    query = { ...query, ...rest }
+    query = { ...query, ...XterViewCustomOptions, ...rest }
     const otac = await getOtac()
     if (otac) {
       query = { ...query, _otac: otac }
@@ -103,13 +112,13 @@ export const openPage = async (page: PageType, mode?: OpenPageMode, options?: Pa
     window.open(uri, '_blank')
     // location.href = uri
   }
-  if (_type === OpenPageMode.alert) {
-    alertIframeLogic(uri, alertConfig)
+  if (_type === OpenPageMode.popup) {
+    alertIframeLogic(uri, popupConfig)
     return
   }
 }
 
-const alertIframeLogic = (uri: string, config?: Partial<PageAlertConfig>) => {
+const alertIframeLogic = (uri: string, config?: Partial<PagePopupConfig>) => {
   const { placement = 'right', style = { width: '100%', height: '100%' }, showCloseIcon = true } = config || {}
   const { iframeDiv, shadow } = getIframe(uri)
   if (showCloseIcon) {

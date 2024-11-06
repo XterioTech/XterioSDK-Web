@@ -61,7 +61,7 @@ const unsubscribe = XterEventEmiter.subscribe<IUserInfo>((info) => {
 
 ### 4.1 Method
 #### `init(config: Partial<ISSoTokensParams>, env?:Env)`
-Initialize Function，View the detailed configuration of [ISSoTokensParams](#ISSoTokensParams)
+Initialize Function，View the detailed configuration of [ISSoTokensParams](#ISSo-tokens-params)
 ```ts
 XterioAuth.init({
   app_id:'',
@@ -81,7 +81,7 @@ XterioAuth.init({
 ```
 
 #### `login(mode?: LoginType)`
-login xterio, View the detailed configuration of [LoginType](#LoginType)
+login xterio, View the detailed configuration of [LoginType](#login-type)
 ```ts
 XterioAuth.login() //default: LoginType.Default
 XterioAuth.login(LoginType.Email)
@@ -115,13 +115,13 @@ XterioAuth.getUserInfo((info) => {
 ```
 
 #### `openPage(page:PageType, mode?:OpenPageMode, options?:PageOptionParam)`
-default mode: `OpenPageMode.alert`，View the detailed configuration of [PageOptionParam](#PageOptionParam) 、[PageType](#PageType)、[OpenPageMode](#OpenPageMode) [PageOptionParam](#`PageOptionParam`)
+default mode: `OpenPageMode.alert`，View the detailed configuration of [PageOptionParam](#page-option-param) 、[PageType](#page-type)、[OpenPageMode](#open-page-mode)
 
 ```ts
 //example1: page:asset, mode:alert
-XterioAuth.openPage(PageType.asset, OpenPageMode.alert, {
+XterioAuth.openPage(PageType.asset, OpenPageMode.popup, {
   active: 'ingame',
-  alertConfig: {
+  popupConfig: {
     placement: 'center',
     showCloseIcon: false,
     style:{
@@ -136,8 +136,10 @@ XterioAuth.openPage(PageType.asset, OpenPageMode.alert, {
 //example2: page:settings, mode:page
 XterioAuth.openPage(PageType.setting, OpenPageMode.page, {
   tab: 'account',
-  hide_wallet_entrance: true
-  //...
+  XterViewCustomOptions: {
+    hide_wallet_entrance: true,
+    //...
+  }
 })
 
 //example3: page:marketplace, mode:iframeDom
@@ -145,7 +147,10 @@ await XterioAuth.openPage(PageType.nft_market, OpenPageMode.iframeDom, {
   //...
   keyword: '',
   collection: '',
-  features: [{ k: '', initValues: [], type: '' }]
+  // features: [{ k: '', initValues: [], type: '' }],
+  features: [{ k: "rarity", initValues: ["SR", "R"]}],
+  // features: [{ k: "score", initValues: [0, 64]}],
+  
 }) //return: domNode
 
 //example4: page:collection, mode:iframeUri
@@ -196,7 +201,7 @@ XterEventEmiter.off(cb, 'event_name')
 clear all listeners
 
 ## 5. Interface/Type
-### `ISSoTokensParams` <a id="ISSoTokensParams"></a>
+### `ISSoTokensParams` <a id="ISSo-tokens-params"></a>
 ```ts
 export interface ISSoTokensParams {
   app_id: string
@@ -220,7 +225,7 @@ export enum Env {
 }
 ```
 
-### `LoginType` <a id="LoginType"></a>
+### `LoginType` <a id="login-type"></a>
 ```ts
 export enum LoginType {
   Default = 'default',
@@ -229,17 +234,17 @@ export enum LoginType {
 }
 ```
 
-### `OpenPageMode` <a id="OpenPageMode"></a>
+### `OpenPageMode` <a id="open-page-mode"></a>
 ```ts
 export enum OpenPageMode {
-  alert = 'alert', //open alert
+  popup = 'popup', //open popup
   page = 'page', //open new page
   iframeDom = 'dom', //return iframe dom
   iframeUri = 'url' //return url
 }
 ```
 
-### `PageType` <a id="PageType"></a>
+### `PageType` <a id="page-type"></a>
 ```ts
 export enum PageType {
   asset = 'asset',
@@ -249,9 +254,8 @@ export enum PageType {
 }
 ```
 
-### `PageOptionParam` <a id="PageOptionParam"></a>
+### `PageOptionParam` <a id="page-option-param"></a>
 ```ts
-export type BooleanOrBinary = boolean | 1 | 0
 export interface PageOptionParam {
   /** only settings page */
   tab?: 'profile' | 'account' | 'wallet' | 'security'
@@ -263,6 +267,18 @@ export interface PageOptionParam {
   collection?: string
   /** only nft page */
   features?: { k: string; initValues: (number | string)[]; type?: string }[]
+  /** set xterio page layout options */
+  XterViewCustomOptions?: Partial<XterViewCustomizeOptions>
+  /** set alert configs */
+  popupConfig?: Partial<PagePopupConfig>
+}
+export type BooleanOrBinary = boolean | 1 | 0
+export interface PagePopupConfig {
+  placement: 'left' | 'right' | 'center'
+  style: Partial<CSSStyleDeclaration>
+  showCloseIcon?: boolean
+}
+export interface XterViewCustomizeOptions {
   /** whether hide wallet entry */
   hide_wallet_entrance?: BooleanOrBinary
   /** whether hide account */
@@ -283,14 +299,6 @@ export interface PageOptionParam {
   hide_game_tokens?: BooleanOrBinary
   /** whether hide game filter, only nft page */
   hide_game_filter?: BooleanOrBinary
-  /** set alert configs */
-  alertConfig?: {
-    placement: 'left' | 'right' | 'center'
-    style: Partial<CSSStyleDeclaration>
-    showCloseIcon?: boolean
-  }
 }
 ```
-
-
 

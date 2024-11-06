@@ -112,7 +112,7 @@ export interface IRegisterConfirmServiceBody extends Omit<ILoginServiceBody, 'h-
   code: string
 }
 export enum OpenPageMode {
-  alert = 'alert', //open alert
+  popup = 'popup', //open popup
   page = 'page', //open new page
   iframeDom = 'dom', //return iframe dom
   iframeUri = 'url' //return url
@@ -130,22 +130,12 @@ export interface PageUriMapType {
   marketplace: string
   collection: string
 }
-export interface PageAlertConfig {
+export interface PagePopupConfig {
   placement: 'left' | 'right' | 'center'
   style: Partial<CSSStyleDeclaration>
   showCloseIcon?: boolean
 }
-export interface PageOptionParam {
-  /** only settings page */
-  tab?: 'profile' | 'account' | 'wallet' | 'security'
-  /** only asset page */
-  active?: 'ingame' | 'onchain'
-  /** only nft market page */
-  keyword?: string
-  /** only nft page, required when nft_collection */
-  collection?: string
-  /** only nft page */
-  features?: { k: string; initValues: (number | string)[]; type?: string }[]
+export interface XterViewCustomizeOptions {
   /** whether hide wallet entry */
   hide_wallet_entrance?: BooleanOrBinary
   /** whether hide account */
@@ -166,6 +156,20 @@ export interface PageOptionParam {
   hide_game_tokens?: BooleanOrBinary
   /** whether hide game filter, only nft page */
   hide_game_filter?: BooleanOrBinary
+}
+export interface PageOptionParam {
+  /** only settings page */
+  tab?: 'profile' | 'account' | 'wallet' | 'security'
+  /** only asset page */
+  active?: 'ingame' | 'onchain'
+  /** only nft market page */
+  keyword?: string
+  /** only nft page, required when nft_collection */
+  collection?: string
+  /** only nft page */
+  features?: { k: string; initValues: (number | string)[]; type?: string }[]
+  /** set xterio page layout options */
+  XterViewCustomOptions?: Partial<XterViewCustomizeOptions>
   /** set alert configs */
-  alertConfig?: Partial<PageAlertConfig>
+  popupConfig?: Partial<PagePopupConfig>
 }
