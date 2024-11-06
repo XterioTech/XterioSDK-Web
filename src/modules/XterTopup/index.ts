@@ -78,10 +78,10 @@ export class XterTopup {
     this.container.style.position = 'relative'
     this.container.innerHTML = ''
 
-    const authFailedException = new Error(
-      `[XterTopup] Authentication failed, please login first before open topup page.`
-    )
+    const errMsg = `[XterTopup] Authentication failed, please login first before open topup page.`
+    const authFailedException = new Error(errMsg)
     if (!XterioAuth.isLogin) {
+      console.error(errMsg)
       throw authFailedException
     }
     let otac = ''
@@ -131,8 +131,8 @@ export class XterTopup {
       asset_id: this.config.spuId,
       game_id: XterioAuthInfo.app_id,
       sku_id: this.config.skuId,
-      hide_header: String(!!this.config.hideHeader),
-      hide_footer: String(!!this.config.hideFooter),
+      hide_header: String(!!this.config?.xterViewCustomOptions.hide_header),
+      hide_footer: String(!!this.config.xterViewCustomOptions.hide_footer),
       show_modal: String(!!this.config.showModal),
       _otac: this.otac
     })

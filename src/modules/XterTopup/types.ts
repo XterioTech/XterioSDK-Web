@@ -1,4 +1,4 @@
-import { Env } from 'interfaces/loginInfo'
+import { Env, XterViewCustomizeOptions } from 'interfaces/loginInfo'
 
 export enum XterTopupMethod {
   Default = 'default',
@@ -51,17 +51,19 @@ export interface TopupFrameConfig {
    */
   height?: string | number
 
-  /**
-   * 是否隐藏支付页面的头部导航栏
-   * @default true
-   */
-  hideHeader?: boolean
+  xterViewCustomOptions: Partial<XterViewCustomizeOptions>
 
-  /**
-   * 是否隐藏支付页面的底部信息栏
-   * @default false
-   */
-  hideFooter?: boolean
+  // /**
+  //  * 是否隐藏支付页面的头部导航栏
+  //  * @default true
+  //  */
+  // hideHeader?: boolean
+
+  // /**
+  //  * 是否隐藏支付页面的底部信息栏
+  //  * @default false
+  //  */
+  // hideFooter?: boolean
 
   /**
    * iframe 加载完成时的回调函数
