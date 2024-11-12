@@ -95,7 +95,7 @@ const unsubscribe = XterEventEmiter.subscribe<IUserInfo>((info) => {
 
 ### 4.1 Method
 #### `init(config: Partial<ISSoTokensParams>, env?:Env)`
-Initialize Function，View the detailed configuration of [ISSoTokensParams](#ISSo-tokens-params)
+Initialize Function，View the detailed configuration of [ISSoTokensParams](#isso-tokens-params)
 ```ts
 XterioAuth.init({
   app_id:'',
@@ -247,7 +247,7 @@ XterEventEmiter.off(cb, 'event_name')
 clear all listeners
 
 ## 5. Interface/Type
-### `ISSoTokensParams` <a id="ISSo-tokens-params"></a>
+### `ISSoTokensParams` <a id="isso-tokens-params"></a>
 ```ts
 export interface ISSoTokensParams {
   app_id: string
