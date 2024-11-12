@@ -53,4 +53,10 @@ export class XterioCache {
   static delete(key: string) {
     localStorage.removeItem(key)
   }
+  static set(key: string, value: string) {
+    localStorage.setItem(key, value)
+  }
+  static get(key: string) {
+    return localStorage.getItem(key) || ''
+  }
 }

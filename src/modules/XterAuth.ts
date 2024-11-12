@@ -1,9 +1,9 @@
-import type { ISSoTokensParams, IUserInfo, Payload } from 'interfaces/loginInfo'
+import { ISSoTokensParams, IUserInfo, LoginMethodType, Payload } from 'interfaces/loginInfo'
 import { Env, LoginType } from 'interfaces/loginInfo'
 import { XterioAuthInfo, XterioAuthTokensManager, XterioAuthUserInfoManager } from './XterAuthInfo'
 import { XterEventEmiter } from './XterEventEmitter'
 import { XterioAuthService } from './AuthService'
-import { EnvVariableConfig, setLogLevel, XLog, XTERIO_CONST, XTERIO_EVENTS } from 'utils'
+import { EnvVariableConfig, getQsParams, setLogLevel, XLog, XTERIO_CONST, XTERIO_EVENTS } from 'utils'
 import { XterAuthModal } from './XterAuthModal/XterAuthModal'
 import qs from 'query-string'
 import { XterioCache } from './XterCache'
@@ -97,19 +97,23 @@ export class XterioAuth {
     }
 
     const queryParams = qs.parseUrl(location.href)
-    let code = queryParams.query?.code
-    if (Array.isArray(code)) {
-      code = code?.[0]
-    }
+    const { query, url: queryUrl } = queryParams
+    const code = getQsParams('code', query)
+    const loginmethod = getQsParams('sso_login_method', query)
+    const loginWallet = getQsParams('sso_login_wallet', query)
+    XterioAuthInfo.loginMethod = (loginmethod || '') as LoginMethodType
+    XterioAuthInfo.loginWallet = loginWallet || ''
+    XLog.debug('code=', code, 'sso_login_method=', loginmethod, 'sso_login_wallet=', loginWallet)
     if (!code) {
       XLog.error('no authorize')
       return ''
     } else {
-      XLog.debug('code=', code)
-      // XLog.debug('url=', location.href, queryParams.query)
-      delete queryParams.query.code
-      const _t = qs.stringify(queryParams.query)
-      const new_url = queryParams.url + (_t ? '?' + _t : '')
+      // XLog.debug('url=', location.href, query)
+      delete query['code']
+      delete query['sso_login_method']
+      delete query['sso_login_wallet']
+      const _t = qs.stringify(query)
+      const new_url = queryUrl + (_t ? '?' + _t : '')
       history.pushState(null, '', new_url)
     }
     return code
@@ -135,7 +139,7 @@ export class XterioAuth {
       client_secret = '',
       redirect_uri = '',
       mode = 'default',
-      logout = _env === Env.Dev ? '0' : '1',
+      logout = _env === Env.Dev ? '1' : '1',
       logLevel = 1
     } = config
     setLogLevel(logLevel)
@@ -231,6 +235,7 @@ export class XterioAuth {
     }
 
     if (mode === LoginType.Mini) {
+      XterioAuthInfo.loginMethod = LoginMethodType.Teleg
       XterAuthModal.instance.open()
       return
     }
@@ -249,8 +254,13 @@ export class XterioAuth {
   }
   static openPage = openPage
   static getOtac = getOtac
+  static get loginMethod() {
+    return XterioAuthInfo.loginMethod
+  }
+  static get loginWalletAddress() {
+    return XterioAuthInfo.loginWallet
+  }
 }
-
 /**
  * how to get user info, recommend way2.
  * way1:XterioAuth.userinfo

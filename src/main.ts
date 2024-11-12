@@ -16,7 +16,10 @@ const updateInfo = (info?: IUserInfo) => {
 }
 
 console.log('initial')
-const redirect_uri = location.href.replace(/[?&]code=[^&]+/, '')
+const redirect_uri = location.href
+  .replace(/[?&]code=[^&]+/, '')
+  .replace(/[?&]sso_login_method=[^&]+/, '')
+  .replace(/[?&]sso_login_wallet=[^&]+/, '')
 const client_id = '4gsmgur6gkp8u9ps8dlco3k7eo'
 const client_secret = 'ABC23'
 const app_id = 'apiautotest'
@@ -101,6 +104,12 @@ addClick('getOtac', async () => {
   const _otac = await XterioAuth.getOtac()
   console.log('_otac=', _otac)
   alert(_otac)
+})
+addClick('getLoginWay', () => {
+  alert(XterioAuth.loginMethod)
+})
+addClick('getLoginWalletAddress', () => {
+  alert(XterioAuth.loginWalletAddress)
 })
 
 addClick('openAsset', () => {

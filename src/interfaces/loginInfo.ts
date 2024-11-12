@@ -77,6 +77,27 @@ export enum LoginType {
   Mini = 'mini'
 }
 
+export enum LoginMethodType {
+  Email = 'email', //email
+  Teleg = 'Telegram', //tg
+
+  //wallet way
+  METAMASK = 'METAMASK',
+  // COINBASE = 'COINBASE',
+  WALLETCONNECT = 'WALLET CONNECT',
+  TRUST = 'TRUST',
+  SAFEPAL = 'SAFEPAL',
+  // OKX = "OKX",
+  BINANCE = 'BINANCE',
+  BYBIT = 'BYBIT',
+
+  //social way
+  Google = 'google',
+  Facebook = 'facebook',
+  Discord = 'discord',
+  Twitter = 'twitterv2'
+}
+
 export interface ILoginServiceBody {
   'h-recaptcha-response'?: string
   username: string

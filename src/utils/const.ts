@@ -36,6 +36,8 @@ export const XTERIO_EVENTS = {
 }
 export const XTERIO_CONST = {
   LOGIN_TYPE: 'xter_auth_login_type',
+  LOGIN_METHOD: 'xter_auth_login_method',
+  LOGIN_WALLET_ADDRESS: 'xter_auth_login_wallet_address',
   TOKENS: 'xter_auth_login_tokens',
   ID_TOKEN: 'xter_auth_id_token',
   REFRESH_TOKEN: 'xter_auth_refresh_token',

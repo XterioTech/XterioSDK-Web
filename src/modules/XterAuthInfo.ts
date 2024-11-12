@@ -1,4 +1,4 @@
-import type { Env, ISSoTokensParams, ITokenRes, IUserInfo, PageUriMapType } from 'interfaces/loginInfo'
+import { Env, ISSoTokensParams, ITokenRes, IUserInfo, LoginMethodType, PageUriMapType } from 'interfaces/loginInfo'
 import { LoginType } from 'interfaces/loginInfo'
 import { XterioCache } from './XterCache'
 import { XTERIO_CONST } from 'utils/const'
@@ -32,6 +32,36 @@ export class XterioAuthInfo {
   static pageUriMap: PageUriMapType
   /** s3 api for page uri map */
   static PageUriApi: string
+  /** record logined way */
+  private static _loginMethod: LoginMethodType = XterioCache.get(XTERIO_CONST.LOGIN_METHOD) as LoginMethodType
+  static set loginMethod(val: LoginMethodType) {
+    this._loginMethod = val
+    XterioCache.set(XTERIO_CONST.LOGIN_METHOD, val)
+  }
+  static get loginMethod() {
+    return this._loginMethod
+  }
+  /** record logined wallet address */
+  private static _loginWalletAddress: string = XterioCache.get(XTERIO_CONST.LOGIN_WALLET_ADDRESS)
+  static set loginWallet(val: string) {
+    this._loginWalletAddress = val
+    XterioCache.set(XTERIO_CONST.LOGIN_WALLET_ADDRESS, val)
+  }
+  static get loginWallet() {
+    if (
+      [
+        LoginMethodType.METAMASK,
+        LoginMethodType.BYBIT,
+        LoginMethodType.WALLETCONNECT,
+        LoginMethodType.TRUST,
+        LoginMethodType.SAFEPAL,
+        LoginMethodType.BINANCE
+      ].includes(this.loginMethod)
+    ) {
+      return this._loginWalletAddress
+    }
+    return ''
+  }
 }
 
 export class XterioAuthTokensManager {

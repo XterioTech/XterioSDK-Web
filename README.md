@@ -1,3 +1,37 @@
+- [@xterio-sdk/auth](#xterio-sdkauth)
+  - [1. Install](#1-install)
+  - [2. Usage](#2-usage)
+  - [3. How to get userinfo](#3-how-to-get-userinfo)
+    - [`XterioAuth.userinfo` (`not recommend`)](#xterioauthuserinfo-not-recommend)
+    - [`XterioAuth.getUserInfo((info) => {})`](#xterioauthgetuserinfoinfo--)
+    - [`XterEventEmiter.subscribe((info) => {})`](#xtereventemitersubscribeinfo--)
+  - [4. API Reference](#4-api-reference)
+    - [4.1 Method](#41-method)
+      - [`init(config: Partial<ISSoTokensParams>, env?:Env)`](#initconfig-partialissotokensparams-envenv)
+      - [`login(mode?: LoginType)`](#loginmode-logintype)
+      - [`logout()`](#logout)
+      - [`getIdToken()`](#getidtoken)
+      - [`getOtac()`](#getotac)
+      - [`getUserInfo(p:Function)`](#getuserinfopfunction)
+      - [`openPage(page:PageType, mode?:OpenPageMode, options?:PageOptionParam)`](#openpagepagepagetype-modeopenpagemode-optionspageoptionparam)
+    - [4.2 Property](#42-property)
+      - [`isLogin`](#islogin)
+      - [`userinfo`](#userinfo)
+      - [`loginMethod`](#loginmethod)
+      - [`loginWalletAddress`](#loginwalletaddress)
+    - [4.3 EventEmiter](#43-eventemiter)
+      - [`subscribe(callback:Func, _event?: string)`](#subscribecallbackfunc-_event-string)
+      - [`off/on(event:string, callback:Func)`](#offoneventstring-callbackfunc)
+      - [`clear()`](#clear)
+  - [5. Interface/Type](#5-interfacetype)
+    - [`ISSoTokensParams` ](#issotokensparams-)
+    - [`Env` ](#env-)
+    - [`LoginType` ](#logintype-)
+    - [`OpenPageMode` ](#openpagemode-)
+    - [`PageType` ](#pagetype-)
+    - [`PageOptionParam` ](#pageoptionparam-)
+    - [`LoginMethodType` ](#loginmethodtype-)
+
 # @xterio-sdk/auth
 
 ## 1. Install
@@ -100,7 +134,7 @@ check whether the idToken is valid. If the idToken is invalid, empty string is r
 XterioAuth.getIdToken() //Promise<string>
 ```
 
-### `getOtac()`
+#### `getOtac()`
 ```ts
 XterioAuth.getOtac() //Promise<string>
 ```
@@ -172,6 +206,18 @@ XterioAuth.isLogin //boolean
 get xterio user information
 ```ts
 XterioAuth.userinfo
+```
+
+#### `loginMethod`
+get user logined method，it's type is [LoginMethodType](#login-method-type)
+```ts
+XterioAuth.loginMethod //LoginMethodType
+```
+
+#### `loginWalletAddress`
+get user logined wallet address
+```ts
+XterioAuth.loginWalletAddress //string
 ```
 
 ### 4.3 EventEmiter
@@ -302,3 +348,26 @@ export interface XterViewCustomizeOptions {
 }
 ```
 
+### `LoginMethodType` <a id="login-method-type"></a>
+```ts
+export enum LoginMethodType {
+  Email = 'email', //email
+  Teleg = 'Telegram', //tg
+
+  //wallet way
+  METAMASK = 'METAMASK',
+  // COINBASE = 'COINBASE',
+  WALLETCONNECT = 'WALLET CONNECT',
+  TRUST = 'TRUST',
+  SAFEPAL = 'SAFEPAL',
+  // OKX = "OKX",
+  BINANCE = 'BINANCE',
+  BYBIT = 'BYBIT',
+
+  //social way
+  Google = 'google',
+  Facebook = 'facebook',
+  Discord = 'discord',
+  Twitter = 'twitterv2'
+}
+```
