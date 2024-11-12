@@ -209,7 +209,7 @@ XterioAuth.userinfo
 ```
 
 #### `loginMethod`
-get user logined method，it's type is [LoginMethodType](#login-method-type)
+get user logined method，it's type is [LoginMethodType](#login-method-type) [LoginMethodType](#loginmethodtype-) 
 ```ts
 XterioAuth.loginMethod //LoginMethodType
 ```
