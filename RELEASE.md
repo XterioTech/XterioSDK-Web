@@ -16,3 +16,6 @@
 - 定制页面拓展+完善 
 - 新增api getOtac() 
 - 优化sso登录流程 
+
+# 0.0.1-p
+- test github release 
