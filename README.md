@@ -33,7 +33,7 @@
     - [`LoginMethodType` ](#loginmethodtype-)
 
 # @xterio-sdk/auth
-1
+2
 ## 1. Install
 `npm install @xterio-sdk/auth` | `yarn add @xterio-sdk/auth` | `pnpm add @xterio-sdk/auth` 
 
