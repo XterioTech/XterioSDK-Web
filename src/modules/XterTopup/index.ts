@@ -128,9 +128,9 @@ export class XterTopup {
     const baseUrl = method === 'default' ? this.TopupUrlConfig.defaultTopupUrl : this.TopupUrlConfig.fiatTopupUrl
 
     const params = new URLSearchParams({
-      asset_id: this.config.spuId,
+      spu_id: this.config.spuId?.toString(),
       game_id: XterioAuthInfo.app_id,
-      sku_id: this.config.skuId,
+      sku_id: this.config.skuId?.toString(),
       hide_header: String(!!this.config?.xterViewCustomOptions.hide_header),
       hide_footer: String(!!this.config.xterViewCustomOptions.hide_footer),
       show_modal: String(!!this.config.showModal),
