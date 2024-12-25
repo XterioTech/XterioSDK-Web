@@ -1,0 +1,1 @@
+import{r as a,aA as n,aB as o}from"./index-DuL_NNup.js";import{I as t}from"./AntdIcon-CR386ADN.js";var i=function(r,e){return a.createElement(t,n({},r,{ref:e,icon:o}))},f=a.forwardRef(i);export{f as R};
