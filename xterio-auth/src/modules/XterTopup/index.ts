@@ -5,6 +5,7 @@ import { XterioAuthService } from 'modules/AuthService'
 import { XterioAuth } from 'modules/XterAuth'
 import './styles/xter-topup.scss'
 import { XterioAuthInfo } from 'modules/XterAuthInfo'
+import { isSafariOrIphone } from 'utils/device'
 
 export type { TopupFrameConfig, PostData }
 export { XterTopupMethod }
@@ -136,6 +137,9 @@ export class XterTopup {
       show_modal: String(!!this.config.showModal),
       _otac: this.otac
     })
+    if (isSafariOrIphone()) {
+      params.append('_otac_login_side', 'client')
+    }
 
     return `${baseUrl}?${params.toString()}`
   }

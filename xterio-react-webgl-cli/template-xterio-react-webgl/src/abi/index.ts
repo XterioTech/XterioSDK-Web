@@ -16,4 +16,4 @@ export { default as DEPRECATED_RAFFLE_AUCTION_MINTER_ABI } from './RaffleAuction
 export { default as WHITELISTCLAIM } from './WhitelistClaim.json'
 export { default as WHITELISTMINTER_ABI } from './WhitelistMinter.json'
 export { default as WHITELISTMINTER_ABI_LEGACY1 } from './WhitelistMinter_legacy1.json'
-export { default as SIGNIN_ABI } from './SignIn.json'
+export { default as SIGNIN_ABI } from './SingleCheckIn.json'

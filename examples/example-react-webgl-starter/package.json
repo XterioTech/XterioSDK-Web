@@ -4,13 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "build": "tsc && vite build",
+    "build:stage": "tsc && vite build --mode stage",
+    "build:production": "tsc && vite build --mode production",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@xterio-sdk/auth": "^0.0.14",
+    "@ant-design/icons": "^5.5.2",
+    "@xterio-sdk/auth": "^0.0.16",
     "@xterio-sdk/wallet": "^0.0.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

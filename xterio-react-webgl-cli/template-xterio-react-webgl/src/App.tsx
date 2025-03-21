@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { Unity } from 'react-unity-webgl'
 import { IUserInfo, LoginType, XterEventEmiter, XTERIO_EVENTS, XterioAuth } from '@xterio-sdk/auth'
 import { useXterioTransaction, useXterioWalletContext } from '@xterio-sdk/wallet'
-import { XterioChainId } from './config'
 import { SIGNIN_ABI } from './abi'
 import { getContract, NETWORK_NAME } from './common'
 
@@ -12,11 +11,12 @@ import { SplashLoading } from './components'
 import { useSendUnityMessage } from './hooks/useSendUnityMessage'
 
 import './App.css'
+import { getXterConfig } from './config/xterio-sdk-config'
 
 const useSignInTrade = () => {
-  const chainId = XterioChainId
-  const contractAddress = '0x19c10FFf96B80208f454034C046CCc4445Cd20ba'
-  const network = NETWORK_NAME.XTERIO
+  const { xterio_chain_id: chainId, xterio_chain_name } = getXterConfig()
+  const contractAddress = '0xFB1D1dF539356C677a93b1d4E693a6b657E80135'
+  const network = xterio_chain_name as NETWORK_NAME
   const abi = SIGNIN_ABI
   const contract = getContract(network, contractAddress, abi)
   const { sendTransaction, state } = useXterioTransaction(contract, 'checkIn')
@@ -60,7 +60,8 @@ function App() {
   // 监听登录
   useUnityEventListener('XterLogin', async () => {
     if (!XterioAuth.isLogin) {
-      XterioAuth.login(LoginType.Mini)
+      // XterioAuth.login(LoginType.Mini) // 弹窗方式登录，只支持邮箱登录
+      XterioAuth.login(LoginType.Default) // SSO 方式登录，以页面跳转方式登录，支持多种登录方式
     }
   })
 
@@ -86,10 +87,10 @@ function App() {
     if (!XterioAuth.isLogin || !aaAddress) {
       return
     }
-    await switchChain(XterioChainId)
-    const type = 2
+    await switchChain(chainId)
+    const channel = 1
     try {
-      const res = await sendTransaction?.(type)
+      const res = await sendTransaction?.(channel)
       sendMessage('XterManager', 'CheckIntateCallback', res.transactionHash ? 'true' : 'false')
     } catch (err) {
       sendMessage('XterManager', 'CheckIntateCallback', 'false')
