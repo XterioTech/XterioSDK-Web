@@ -1,0 +1,1 @@
+import{r as a,aA as n,aB as o}from"./index-Bn-ps2Oq.js";import{I as t}from"./AntdIcon-DHasPo27.js";var i=function(r,e){return a.createElement(t,n({},r,{ref:e,icon:o}))},f=a.forwardRef(i);export{f as R};
