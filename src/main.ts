@@ -141,6 +141,9 @@ addClick('page-nft-market', () => {
 addClick('page-nft-collection', () => {
   changePage(PageType.nft_collection)
 })
+addClick('page-get-xter', () => {
+  changePage(PageType.get_xter)
+})
 
 changePage(PageType.asset)
 

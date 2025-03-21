@@ -14,7 +14,7 @@ import type {
 import { XLog } from 'utils'
 import { XterioAuthInfo, XterioAuthTokensManager, XterioAuthUserInfoManager } from './XterAuthInfo'
 import { XterEventEmiter } from './XterEventEmitter'
-import { XTERIO_EVENTS } from 'utils/const'
+import { DefaultPageUriMap, XTERIO_EVENTS } from 'utils/const'
 import { getFetcher, postFetcher } from 'utils/fetchers'
 import { XterioAuth } from './XterAuth'
 
@@ -258,12 +258,7 @@ export class XterioAuthService {
       XLog.error('getPageUrlMap', e)
       return {
         domain: '',
-        pages: {
-          asset: '/asset',
-          settings: '/settings',
-          marketplace: '/marketplace',
-          collection: '/collection/{app_id}/{collection_id}'
-        }
+        pages: DefaultPageUriMap
       }
     })
     XLog.debug(uri, res)
