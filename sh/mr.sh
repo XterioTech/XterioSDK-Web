@@ -31,7 +31,7 @@ sourceBranch="npm-publish"
 targetBranch="main"
 
 checkBranchDiff() {
-  diffResponse=$(curl -s -H "PRIVATE-TOKEN: $accessToken" "$gitlabUrl/projects/$projectID/repository/compare?from=$sourceBranch&to=$targetBranch")
+  diffResponse=$(curl -s -H "PRIVATE-TOKEN: $accessToken" "$gitlabUrl/projects/$projectID/repository/compare?from=$sourceBranch&to=$targetBranch&straight=true")
   diffFiles=$(echo "$diffResponse" | jq '.diffs | length')
   if [ "$diffFiles" -eq 0 ]; then
     return 1
