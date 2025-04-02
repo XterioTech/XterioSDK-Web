@@ -63,9 +63,6 @@ export class XterTopup {
     this.iframe = null
     this.container = null
 
-    // 移除消息监听
-    window.removeEventListener('message', this.handleMessage)
-
     this.config.onClose?.()
   }
 
