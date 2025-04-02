@@ -1,1 +1,0 @@
-import{aG as c,r as t,aH as f}from"./index-BCD0yzpg.js";var s=function(n,r,e){e===void 0&&(e={});var u=c(n),a=t.useRef(null),i=t.useCallback(function(){a.current&&clearInterval(a.current)},[]);return t.useEffect(function(){if(!(!f(r)||r<0))return e.immediate&&u(),a.current=setInterval(u,r),i},[r,e.immediate]),i};export{s as u};
