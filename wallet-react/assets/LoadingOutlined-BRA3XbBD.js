@@ -1,1 +1,0 @@
-import{r as a,aA as n,aB as o}from"./index-D1UfBkzM.js";import{I as t}from"./AntdIcon-C-f9f765.js";var i=function(r,e){return a.createElement(t,n({},r,{ref:e,icon:o}))},f=a.forwardRef(i);export{f as R};
