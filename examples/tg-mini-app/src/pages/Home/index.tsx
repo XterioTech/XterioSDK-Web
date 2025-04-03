@@ -27,8 +27,8 @@ const Home = observer(() => {
   useEffect(() => {
     if (containerRef.current) {
       xterTopupRef.current = new XterTopup({
-        spuId: '66c849b2c0d855814f49d3c4',
-        skuId: '1',
+        spuId: 66,
+        skuId: 1,
         xterViewCustomOptions: {
           hide_header: true,
           hide_footer: true
