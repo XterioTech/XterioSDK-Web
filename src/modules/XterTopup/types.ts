@@ -26,10 +26,10 @@ export interface EnvTopupUrlConfig {
 
 export interface TopupFrameConfig {
   /** 要购买的商品 spu_id  */
-  spuId: string
+  spuId: number
 
   /** 商品ID，用于标识具体要购买的商品 */
-  skuId: string
+  skuId: number
 
   /**
    * 是否在页面加载完成后直接显示支付弹窗
